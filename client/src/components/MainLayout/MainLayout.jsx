@@ -1,12 +1,16 @@
 import React from "react";
 
-import "./MainLayout.css";
+import "./MainLayout.scss";
+import HeaderLayout from "../HeaderLayout";
+import FooterLayout from "../FooterLayout/FooterLayout";
 
 const MainLayout = (props) => {
   const { children } = props;
   return (
     <div className="c-main-layout">
-      <main className="app-content">{children}</main>
+      <HeaderLayout />
+        <main className="app-content">{children}</main>
+      <FooterLayout />
     </div>
   );
 };
