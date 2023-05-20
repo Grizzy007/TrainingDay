@@ -9,6 +9,7 @@ const Icon = (props) => {
     children,
     onClick,
     classNameIconType,
+    style,
   } = props;
   const classSize = size ? `c-icon_${size}` : 'c-icon_md';
   const classInverse = inverse ? 'inverse' : '';
@@ -23,7 +24,7 @@ const Icon = (props) => {
   };
 
   return (
-    <span className={classIcon} onClick={handleClick}>
+    <span style={style} className={classIcon} onClick={handleClick}>
       {children}
     </span>
   );
