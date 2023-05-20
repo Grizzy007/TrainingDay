@@ -1,0 +1,8 @@
+.c-header-layout {
+  background-color: black;
+  .nav-link {
+    &:last-child {
+      padding: 6px 0px 0px 0.5rem;
+    }
+  }
+}
