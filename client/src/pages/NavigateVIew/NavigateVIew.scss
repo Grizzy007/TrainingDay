@@ -16,7 +16,7 @@
     height: inherit;
 
     &_team {
-      background: url("../../assert/team.jpg") center/cover no-repeat;
+      background: url("../../assert/photo/team/team_1.jpg") center/cover no-repeat;
 
       .v-navigate__caption {
         &:hover {
@@ -26,7 +26,8 @@
     }
 
     &_catalog {
-      background: url("../../assert/gym_1.jpg") center/cover no-repeat;
+      background: url("../../assert/photo/catalog/catalog_1.jpg") center/cover
+        no-repeat;
 
       .v-navigate__caption {
         &:hover {
@@ -36,7 +37,8 @@
     }
 
     &_suggest-new-program {
-      background: url("../../assert/trainers_2.jpg") center/cover no-repeat;
+      background: url("../../assert/photo/suggest-new-program/suggest-new-program_2.jpg")
+        center/cover no-repeat;
 
       .v-navigate__caption {
         &:hover {
@@ -46,7 +48,7 @@
     }
 
     &_user-profile {
-      background: url("../../assert/gym_room.jpg") center/cover no-repeat;
+      background: url("../../assert/photo/user-profile/profile_1.jpg") center/cover no-repeat;
     }
   }
 
