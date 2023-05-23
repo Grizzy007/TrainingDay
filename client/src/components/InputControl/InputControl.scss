@@ -1,0 +1,31 @@
+.c-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 15px 20px 15px 20px;
+
+  &__label-text {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    margin-right: 170px;
+  }
+
+  &__input {
+    width: 414px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    background: #EBEBEB;
+    color: black;
+    height: 50px;
+    padding: 10px 10px 10px 10px;
+  }
+
+  &__input[type="date"]::-webkit-calendar-picker-indicator {
+    font-size: 24px;
+  }
+}
+ 
