@@ -1,16 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+
 import { NavLink, Link } from "react-router-dom";
+
 import { PAGE } from "../../config/config";
-import { observer } from "mobx-react-lite";
 
 import { IconUserNav } from "../Icons";
 
-import "./HeaderLayout.scss";
-
-const HeaderLayout = observer(() => {
+const HeaderLayout = () => {
   const handleCheckActiveLink = (link) => {
-    return link.isActive ? "nav-link active" : "nav-link ";
+    return link.isActive ? "nav-link active" : "nav-link";
   };
 
   return (
@@ -46,7 +45,7 @@ const HeaderLayout = observer(() => {
                   HOME
                 </NavLink>
                 <NavLink
-                  to="/login"
+                  to="/catalog"
                   className={({ isActive }) =>
                     handleCheckActiveLink({ isActive })
                   }
@@ -54,7 +53,7 @@ const HeaderLayout = observer(() => {
                   CATALOG
                 </NavLink>
                 <NavLink
-                  to="/login"
+                  to="/suggest-new-program"
                   className={({ isActive }) =>
                     handleCheckActiveLink({ isActive })
                   }
@@ -62,10 +61,13 @@ const HeaderLayout = observer(() => {
                   SUGGESTION NEW PROGRAM
                 </NavLink>
                 <NavLink
-                  to="/login"
+                  to="/profile"
                   className={({ isActive }) =>
                     handleCheckActiveLink({ isActive })
                   }
+                  style={{
+                    padding: "6px 0px 0px 0.5rem",
+                  }}
                 >
                   <IconUserNav style={{ fill: "white" }} />
                 </NavLink>
@@ -76,6 +78,6 @@ const HeaderLayout = observer(() => {
       </div>
     </div>
   );
-});
+};
 
 export default HeaderLayout;

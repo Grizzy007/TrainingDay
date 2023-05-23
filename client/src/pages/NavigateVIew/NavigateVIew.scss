@@ -4,7 +4,6 @@
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  // box-shadow: inset rgba(0, 0, 0, 1) 0px -50px 36px -28px;
   box-shadow: inset black 0px -16px 80px 16px;
   color: #fff;
 
@@ -16,7 +15,7 @@
     height: inherit;
 
     &_team {
-      background: url("../../assert/photo/team/team_1.jpg") center/cover no-repeat;
+      background: url("../../assert/photo/navigate/team.jpg") center/cover no-repeat;
 
       .v-navigate__caption {
         &:hover {
@@ -26,7 +25,7 @@
     }
 
     &_catalog {
-      background: url("../../assert/photo/catalog/catalog_1.jpg") center/cover
+      background: url("../../assert/photo/navigate/catalog.jpg") center/cover
         no-repeat;
 
       .v-navigate__caption {
@@ -37,7 +36,7 @@
     }
 
     &_suggest-new-program {
-      background: url("../../assert/photo/suggest-new-program/suggest-new-program_2.jpg")
+      background: url("../../assert/photo/navigate/suggest-program.jpg")
         center/cover no-repeat;
 
       .v-navigate__caption {
@@ -48,7 +47,7 @@
     }
 
     &_user-profile {
-      background: url("../../assert/photo/user-profile/profile_1.jpg") center/cover no-repeat;
+      background: url("../../assert/photo/navigate/profile.jpg") center/cover no-repeat;
     }
   }
 

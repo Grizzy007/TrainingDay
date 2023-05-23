@@ -1,10 +1,11 @@
 import React from "react";
 
+import equinox from "../../assert/logo/equinox.png";
+import harbourLogoBlack from "../../assert/logo/harbour-logo-black.png";
+
 import MainLayout from "../../components/MainLayout";
 
 import "./HomeView.scss";
-import equinox from "../../assert/logo/equinox.png";
-import harbourLogoBlack from "../../assert/logo/harbour-logo-black.png";
 
 const HomeView = () => {
   return (

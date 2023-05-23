@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Component.css';
+import './Component.scss';
 
 const Component = (props) => {
   const { someProps } = props;
