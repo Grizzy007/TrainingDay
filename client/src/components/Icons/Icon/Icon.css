@@ -1,0 +1,27 @@
+/* .c-icon {
+   fill: black;
+   display: inline-block;
+   line-height: 1
+   &_xl {
+     width: 32px;
+   
+   &_lg {
+     width: 28px;
+   
+   &_md {
+     width: 24px;
+   
+   &_sm {
+     width: 20px;
+   
+   &_xs {
+     width: 16px;
+   
+   &.inverse {
+     fill: white;
+   
+   &.clickable {
+     cursor: pointer;
+   }
+ }
+*/

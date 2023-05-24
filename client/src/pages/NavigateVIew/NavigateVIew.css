@@ -1,0 +1,130 @@
+.v-navigate {
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  box-shadow: inset black 0px -16px 80px 16px;
+  color: #fff;
+}
+
+.v-navigate__block {
+  box-shadow: inherit;
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  height: inherit;
+}
+
+.v-navigate__block_team {
+  background: url("../../assert/photo/navigate/team.jpg") center/cover no-repeat;
+}
+
+.v-navigate__block_catalog {
+  background: url("../../assert/photo/navigate/catalog.jpg") center/cover
+    no-repeat;
+}
+
+.v-navigate__block_suggest-new-program {
+  background: url("../../assert/photo/navigate/suggest-program.jpg")
+    center/cover no-repeat;
+}
+
+.v-navigate__block_user-profile {
+  background: url("../../assert/photo/navigate/profile.jpg") center/cover no-repeat;
+}
+
+.v-navigate__block_team .v-navigate__caption:hover {
+  color: #0099f6;
+}
+
+.v-navigate__block_catalog .v-navigate__caption:hover {
+  color: #54c93c;
+}
+
+.v-navigate__block_suggest-new-program .v-navigate__caption:hover {
+  color: #eeb500;
+}
+
+.v-navigate__block_user-profile .v-navigate__caption:hover {
+  color: #0099f6;
+}
+
+.v-navigate__block-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  height: inherit;
+  padding-bottom: 20px;
+  transition: 0.2s;
+}
+
+.v-navigate__block-wrapper:hover {
+  backdrop-filter: blur(10px);
+
+  .v-navigate__description {
+    filter: blur(10px);
+  }
+}
+
+.v-navigate__block-wrapper:hover {
+  backdrop-filter: blur(10px);
+
+  .v-navigate__description {
+    filter: blur(10px);
+  }
+}
+
+.v-navigate__description {
+  padding: 0px 24px;
+  min-height: 64px;
+}
+
+.v-navigate__block-caption {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter";
+  text-align: center;
+}
+
+.v-navigate__caption {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 39px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.v-navigate__caption:hover {
+  font-size: 32px;
+}
+
+
+.v-navigate__stick {
+  width: 50px;
+  height: 4px;
+  background-color: #fff;
+  margin-bottom: 4px;
+}
+
+.v-navigate__stick {
+  width: 50px;
+  height: 4px;
+  background-color: #fff;
+  margin-bottom: 4px;
+}
+
+.c-icon-entry svg{
+  width: 80px;
+  transition: 0.2s;
+  fill: #fff;
+}
+
+.c-icon-entry svg:hover {
+  font-size: 28px;
+  width: 90px;
+  fill: #ff273c;
+}

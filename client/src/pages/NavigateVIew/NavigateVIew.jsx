@@ -8,7 +8,7 @@ import { IconEntry } from "../../components/Icons";
 import { PAGE } from "../../config/config";
 
 // Styles
-import "./NavigateVIew.scss";
+import "./NavigateVIew.css";
 
 const NavigateVIew = () => {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const NavigateVIew = () => {
         <div className="v-navigate__block-wrapper">
           <div className="v-navigate__block-caption">
             <h2 className="v-navigate__caption">
-              <IconEntry onClick={() => navigate(PAGE.USERPROFILE.PATH)} />
+              <IconEntry onClick={() => navigate(PAGE.USERPROFILE.PATH)}/>
             </h2>
           </div>
           <div className="v-navigate__description">

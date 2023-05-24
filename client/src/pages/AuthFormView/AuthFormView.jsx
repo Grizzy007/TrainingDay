@@ -10,7 +10,7 @@ import { Context } from "../..";
 
 import { PAGE } from "../../config/config";
 
-import "./AuthFormView.scss";
+import "./AuthFormView.css";
 
 const AuthFormView = observer(() => {
   const location = useLocation();

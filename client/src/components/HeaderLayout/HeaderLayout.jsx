@@ -66,6 +66,7 @@ const HeaderLayout = () => {
                     handleCheckActiveLink({ isActive })
                   }
                   style={{
+                    width: 30,
                     padding: "6px 0px 0px 0.5rem",
                   }}
                 >

@@ -10,7 +10,7 @@ const IconUserProfile = (props) => {
       inverse={inverse}
       onClick={onClick}
       style={style}
-      classNameIconType="c-icon-entry"
+      classNameIconType="c-icon-user-profile"
     >
       <svg
         viewBox="0 0 67 76"

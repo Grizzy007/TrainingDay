@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-import { Context } from '../..';
-import { PAGE } from '../../config/config';
-
+import { Context } from "../..";
+import { PAGE } from "../../config/config";
 
 const GuardRouter = observer((props) => {
   const { children } = props;
@@ -13,11 +12,15 @@ const GuardRouter = observer((props) => {
 
   const navigate = useNavigate();
 
-  return (
-    <>
-      {user.isAuth ? children : navigate(PAGE.REGISTRATION.PATH)}
-    </>
-  );
+  useEffect(() => {
+    if (!user.isAuth) {
+      navigate(PAGE.REGISTRATION.PATH);
+    }
+
+    
+  }, [navigate, user.isAuth]);
+
+  return <>{children}</>;
 });
 
 export default GuardRouter;
