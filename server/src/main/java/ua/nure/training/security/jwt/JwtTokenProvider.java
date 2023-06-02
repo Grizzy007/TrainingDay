@@ -24,9 +24,11 @@ public class JwtTokenProvider {
     @Value("${trainingday.app.jwtExpirationMs}")
     private long validation;
 
-    @Autowired
     private UserDetailsService userDetailsService;
 
+    public void setUserDetailsService(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -38,7 +40,7 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String login, Set<Role> roles) {
+    public String createToken(String login, List<Role> roles) {
         Claims claims = Jwts.claims().setSubject(login);
         claims.put("roles", getRoleNames(roles));
 
@@ -83,7 +85,7 @@ public class JwtTokenProvider {
         }
     }
 
-    private List<String> getRoleNames(Set<Role> userRoles) {
+    private List<String> getRoleNames(List<Role> userRoles) {
         List<String> result = new ArrayList<>();
         userRoles.forEach(role -> result.add(role.getName().toString()));
         return result;

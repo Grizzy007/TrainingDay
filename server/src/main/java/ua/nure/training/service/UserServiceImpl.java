@@ -6,12 +6,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.nure.training.entity.Role;
 import ua.nure.training.entity.User;
-import ua.nure.training.entity.login.ERole;
 import ua.nure.training.repository.RoleRepository;
 import ua.nure.training.repository.UserRepository;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -26,10 +25,12 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    @Autowired
     public void setRoleRepository(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
+    @Autowired
     public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
@@ -37,8 +38,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
-        Role roleUser = roleRepository.findByName(ERole.USER).get();
-        Set<Role> userRoles = new HashSet<>();
+        Role roleUser = roleRepository.findByName("USER").orElse(null);
+        List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
@@ -50,12 +51,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByLogin(String login) {
-        User result = userRepository.findByLogin(login).get();
-        log.info("User found {" + result.getLogin() + "}");
+        User result = userRepository.findByLogin(login).orElse(null);
         if (result == null) {
             log.info("User already exist");
             return null;
         }
+        log.info("User found {" + result.getLogin() + "}");
         return result;
     }
 

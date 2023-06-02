@@ -1,7 +1,5 @@
 package ua.nure.training.entity;
 
-import ua.nure.training.entity.login.ERole;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,9 +10,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private ERole name;
+    private String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
@@ -22,15 +19,15 @@ public class Role {
     public Role() {
     }
 
-    public Role(ERole name) {
+    public Role(String name) {
         this.name = name;
     }
 
-    public ERole getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(ERole name) {
+    public void setName(String name) {
         this.name = name;
     }
 }

@@ -1,32 +1,30 @@
 package ua.nure.training.entity;
 
 import javax.persistence.*;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "login")
     private String login;
     @Column(name = "pass")
     private String password;
-    @Column(name = "birthday", nullable = true)
+    @Column(name = "birthday")
     private Calendar birthday;
-    @Column(name = "nickname", nullable = true)
+    @Column(name = "nickname")
     private String nickname;
-    @Column(name = "phone_number", nullable = true)
+    @Column(name = "phone_number")
     private String phoneNumber;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(  name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private List<Role> roles = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "program_of_user", joinColumns = @JoinColumn(name = "user_id"),
@@ -44,11 +42,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -100,11 +98,11 @@ public class User {
         this.programs = programs;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }
