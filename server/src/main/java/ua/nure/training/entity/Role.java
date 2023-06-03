@@ -13,7 +13,7 @@ public class Role {
     @Column(length = 20)
     private String name;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private List<User> users;
 
     public Role() {

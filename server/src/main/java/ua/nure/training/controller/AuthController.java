@@ -24,7 +24,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/v1/auth/")
+@RequestMapping(value = "/api/v1/")
 public class AuthController {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -38,7 +38,22 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/login")
+//    @GetMapping(value = "{id}")
+//    public ResponseEntity<AuthDto> getUserById(@PathVariable(name = "id") Integer id){
+//        User user = userService.findById(id);
+//
+//        if(user == null){
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//
+//        AuthDto result = new AuthDto();
+//        result.setPassword(user.getPassword());
+//        result.setLogin(user.getLogin());
+//
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
+
+    @PostMapping("auth/login")
     public ResponseEntity login(@RequestBody AuthDto requestDto) {
         String username = requestDto.getLogin();
         String password = requestDto.getPassword();

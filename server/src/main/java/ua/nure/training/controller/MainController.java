@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.nure.training.entity.Program;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Controller
+@RestController
 @RequestMapping(value = "/")
 public class MainController {
     private final ProgramService programService;
@@ -26,7 +25,7 @@ public class MainController {
 
     @GetMapping(value = {"/", "/home"})
     public String main() {
-        return "index";
+        return "Hello world!";
     }
 
     @GetMapping(value = "/api/v1/catalog")

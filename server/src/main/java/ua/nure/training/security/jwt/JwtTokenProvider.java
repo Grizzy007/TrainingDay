@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ua.nure.training.entity.Role;
 
 import javax.annotation.PostConstruct;
@@ -26,6 +27,7 @@ public class JwtTokenProvider {
 
     private UserDetailsService userDetailsService;
 
+    @Autowired
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
@@ -55,8 +57,9 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    @Transactional
     public Authentication getAuth(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(token);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getLogin(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
