@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: grizzy007/mysql
+    container_name: mysql
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "Agent8998Agent_007"
+      MYSQL_DATABASE: "trd"
+    restart: always
+  app:
+    image: grizzy007/trd
+    container_name: trd
+    ports:
+      - "8080:8087"
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql/trd"
+    depends_on:
+      - db
+
