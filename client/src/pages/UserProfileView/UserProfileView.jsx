@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
@@ -23,15 +23,20 @@ const UserProfileView = observer(() => {
     phone: "",
   };
 
-  const [userData, setUserDate] = useState(user || defaultUserDate);
+  
+  // console.log(user.userData());
+  // console.log(user.userData);
+  // console.log(user.userData());
+
+  const [userData, setUserDate] = useState(defaultUserDate);
 
   const handleChange = (event) => {
     const eventTarget = event.currentTarget;
-    const newUserData = {
+
+    setUserDate({
       ...userData,
       [eventTarget.name]: eventTarget.value,
-    };
-    setUserDate(newUserData);
+    });
   };
 
   const handleSave = async(event) => {
@@ -45,7 +50,7 @@ const UserProfileView = observer(() => {
   const handleCancel = (event) => {
     event.preventDefault();
 
-    setUserDate(defaultUserDate);
+    setUserDate(user);
   };
 
   const handleLogOut = () => {
@@ -53,6 +58,10 @@ const UserProfileView = observer(() => {
     user.setUser(null);
     navigate(PAGE.NAVIGATE.PATH);
   };
+
+  useEffect(() => {
+    console.log(userData); 
+  })
 
   return (
     <MainLayout>

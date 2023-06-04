@@ -18,23 +18,21 @@ const AuthFormView = observer(() => {
 
   const isLogin = location.pathname === PAGE.LOGIN.PATH;
   const defaultAuthDate = {
-    login: '',
-    password: '',
-  }
+    login: "",
+    password: "",
+  };
 
-  const {user} = useContext(Context);
-  
+  const { user } = useContext(Context);
+
   const [authData, setAuthDate] = useState(defaultAuthDate);
-
 
   const handleChange = (event) => {
     const eventTarget = event.currentTarget;
-    const newAuthDate = {
+    setAuthDate({
       ...authData,
       [eventTarget.name]: eventTarget.value,
-    }
-    setAuthDate(newAuthDate);
-  }
+    });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,22 +41,22 @@ const AuthFormView = observer(() => {
       if (isLogin) {
         const response = await login(authData);
         user.setUser(response);
+        user.setAuth(true);
+        navigate(PAGE.USERPROFILE.PATH);
       } else {
         const response = await registration(authData);
         user.setUser(response);
       }
-      user.setAuth(true);
-      navigate(PAGE.USERPROFILE.PATH)
     } catch (error) {
-      alert(error.response.data.message)
+      alert(error.response.data.message);
     }
-  }
+  };
 
   return (
     <MainLayout>
       <div className="v-auth">
         <div className="container d-flex justify-content-between align-items-center">
-          <div className="v-auth__form ">
+          <form className="v-auth__form ">
             <h2 className="v-auth__form-title grid">BE BETTER</h2>
             <div className="v-auth__form-wrapper d-flex flex-column justify-content-center">
               <div className="v-auth__wrap-input">
@@ -81,6 +79,18 @@ const AuthFormView = observer(() => {
                   name="password"
                 />
               </div>
+              {!isLogin && (
+                <div className="v-auth__wrap-input">
+                  <input
+                    type="confirm-password"
+                    className="v-auth__input"
+                    placeholder="Confirm password"
+                    onChange={handleChange}
+                    value={authData.password}
+                    name="password"
+                  />
+                </div>
+              )}
               <div className="v-auth__register mb-5">
                 {location.pathname !== PAGE.REGISTRATION.PATH ? (
                   <span>
@@ -106,7 +116,7 @@ const AuthFormView = observer(() => {
                 </button>
               </div>
             </div>
-          </div>
+          </form>
           <img className="align-self-end" src={rock} alt="rock" />
         </div>
       </div>

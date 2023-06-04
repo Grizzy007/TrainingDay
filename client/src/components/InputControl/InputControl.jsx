@@ -1,8 +1,5 @@
 import React from 'react';
 
-// Components
-// import { IconCalendar } from '../Icons';
-
 // Style
 import './InputControl.css';
 
