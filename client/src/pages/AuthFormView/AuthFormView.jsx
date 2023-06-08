@@ -36,19 +36,14 @@ const AuthFormView = observer(() => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      if (isLogin) {
-        const response = await login(authData);
-        user.setUser(response);
-        user.setAuth(true);
-        navigate(PAGE.USERPROFILE.PATH);
-      } else {
-        const response = await registration(authData);
-        user.setUser(response);
-      }
-    } catch (error) {
-      alert(error.response.data.message);
+    if (isLogin) {
+      const response = await login(authData);
+      user.setUser(response);
+      user.setAuth(true);
+      navigate(PAGE.USERPROFILE.PATH);
+    } else {
+      const response = await registration(authData);
+      user.setUser(response);
     }
   };
 

@@ -1,15 +1,12 @@
 import { $host } from "./index";
 
-export const registration = async (email, password) => {
-  const response = await $host.post("api/user/registration", {
-    email,
-    password,
-  });
+export const registration = async (data) => {
+  const response = await $host.post("api/auth/registration", data);
   return response;
 };
 
-export const login = async (email, password) => {
-  const response = await $host.post("api/user/login", { email, password });
+export const login = async (data) => {
+  const response = await $host.post("api/auth/login", data);
   return response;
 };
 
