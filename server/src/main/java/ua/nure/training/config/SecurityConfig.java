@@ -7,16 +7,22 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ua.nure.training.security.jwt.JwtConfigurer;
 import ua.nure.training.security.jwt.JwtTokenProvider;
+
+import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private JwtTokenProvider jwtTokenProvider;
 
-    private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
-    private static final String LOGIN_ENDPOINT = "/api/v1/auth/**";
+    private static final String PROFILE_ENDPOINT = "/api/profile";
+    private static final String PROGRAM_ENDPOINT = "/api/catalog/**";
+    private static final String GUEST_ENDPOINT = "/**";
 
     public SecurityConfig(@Lazy JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -28,17 +34,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000", "https://localhost:3001", "https://localhost:8080"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "PUT", "DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 httpBasic().disable()
                 .csrf().disable()
+                .cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(LOGIN_ENDPOINT).permitAll()
-                .antMatchers("/home").permitAll()
-                .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+                .antMatchers(GUEST_ENDPOINT).permitAll()
+                .antMatchers(PROFILE_ENDPOINT).hasRole("USER")
+                .antMatchers(PROGRAM_ENDPOINT).hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
 //                .formLogin()

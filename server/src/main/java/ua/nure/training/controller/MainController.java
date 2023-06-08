@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/")
 public class MainController {
     private final ProgramService programService;
@@ -28,7 +29,7 @@ public class MainController {
         return "Hello world!";
     }
 
-    @GetMapping(value = "/api/v1/catalog")
+    @GetMapping(value = "/api/catalog")
     public String catalog(
             Model model,
             @RequestParam(value = "size", required = false, defaultValue = "5") Integer size,
@@ -43,7 +44,7 @@ public class MainController {
         return "programs";
     }
 
-    @GetMapping(value = "/api/v1/suggest-program")
+    @GetMapping(value = "/api/suggest-program")
     @PreAuthorize("hasAuthority('read')")
     public String suggestProgram() {
         return "suggestProgram";
@@ -53,12 +54,12 @@ public class MainController {
     @PreAuthorize("hasAuthority('read')")
     public String createProgram(@RequestParam String name, @RequestParam String description,
                                 @RequestParam Integer duration, @RequestParam String muscleGroup,
-                                @RequestParam String definition) {
-        programService.createUsersProgram(name, duration, muscleGroup, description, definition);
+                                @RequestParam String definition, @RequestParam String link) {
+        programService.createUsersProgram(name, duration, muscleGroup, description, definition, link);
         return "redirect:/home";
     }
 
-    @GetMapping(value = "/api/v1/catalog/{id}")
+    @GetMapping(value = "/api/catalog/{id}")
     @PreAuthorize("hasAuthority('read')")
     public String programInfo(@PathVariable(value = "id") Integer id, Model model) {
         Program program = programService.getInfoAboutProgram(id);

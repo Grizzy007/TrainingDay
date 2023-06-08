@@ -1,2 +1,4 @@
-package ua.nure.training.controller;public class SuggestProgramController {
+package ua.nure.training.controller;
+
+public class SuggestProgramController {
 }

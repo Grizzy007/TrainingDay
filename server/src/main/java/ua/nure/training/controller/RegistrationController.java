@@ -2,12 +2,9 @@ package ua.nure.training.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.nure.training.entity.User;
 import ua.nure.training.entity.dto.AuthDto;
 import ua.nure.training.service.UserService;
@@ -17,7 +14,8 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/v1/auth/")
+@CrossOrigin(origins = "*")
+@RequestMapping(value = "/api/auth/")
 public class RegistrationController {
     private final UserService userService;
 
@@ -26,13 +24,15 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @PostMapping("/registration")
+    @PostMapping("registration")
     public ResponseEntity login(@RequestBody AuthDto requestDto) {
         String username = requestDto.getLogin();
         String password = requestDto.getPassword();
 
         if (userService.findByLogin(username) != null) {
-            throw new BadCredentialsException("Login already used!");
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "User with this login already exist!");
+            return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
         }
 
         User newUser = new User();
@@ -42,10 +42,6 @@ public class RegistrationController {
 
         log.info("User logged in");
 
-        Map<Object, Object> response = new HashMap<>();
-        response.put("username", username);
-        response.put("password", newUser.getPassword());
-
-        return ResponseEntity.ok(response);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

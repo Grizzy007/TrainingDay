@@ -45,8 +45,8 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String login, List<Role> roles) {
-        Claims claims = Jwts.claims().setSubject(login);
+    public String createToken(JwtUser jwtUser, List<Role> roles) {
+        Claims claims = Jwts.claims().setSubject(jwtUser.getLogin());
         claims.put("roles", getRoleNames(roles));
 
         Date now = new Date();
@@ -72,7 +72,7 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;

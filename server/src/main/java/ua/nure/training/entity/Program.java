@@ -2,6 +2,7 @@ package ua.nure.training.entity;
 
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,12 +15,14 @@ public class Program {
     private String name;
     @Column(name = "duration")
     private Integer duration;
-    @Column(name = "muscleGroup")
+    @Column(name = "muscle_group")
     private String group;
     @Column(name = "description")
     private String description;
     @Column(name = "definition")
     private String definition;
+    @Column(name = "link")
+    private String link;
     @ManyToOne(cascade = {CascadeType.ALL})
     private Status status;
     @ManyToOne
@@ -28,7 +31,8 @@ public class Program {
     @ManyToMany(mappedBy = "programs")
     private Set<User> users;
 
-    public Program(String name, Integer duration, String group, Trainer trainer, String description, String definition) {
+    public Program(String name, Integer duration, String group, Trainer trainer, String description,
+                   String definition, String link) {
         this.name = name;
         this.duration = duration;
         this.group = group;
@@ -36,6 +40,7 @@ public class Program {
         this.description = description;
         this.status = new Status("NEW");
         this.definition = definition;
+        this.link = link;
     }
 
     public String getGroup() {
@@ -113,6 +118,14 @@ public class Program {
 
     public void setDefinition(String definition) {
         this.definition = definition;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
 

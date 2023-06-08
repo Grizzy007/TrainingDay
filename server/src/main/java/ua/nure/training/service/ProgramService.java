@@ -10,6 +10,7 @@ import ua.nure.training.entity.Program;
 import ua.nure.training.entity.dto.ProgramDto;
 import ua.nure.training.repository.ProgramRepo;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service("programService")
@@ -30,11 +31,12 @@ public class ProgramService {
         return new Program();
     }
 
-    public Program createUsersProgram(String name, Integer duration, String muscleGroup, String description, String def) {
-        ProgramDto program = new ProgramDto(name, duration, muscleGroup, description, def);
+    public Program createUsersProgram(String name, Integer duration, String muscleGroup, String description,
+                                      String def, String link) {
+        ProgramDto program = new ProgramDto(name, duration, muscleGroup, description, def, link);
         Program toVerify = new Program(
                 program.getName(), program.getDuration(), program.getGroup(), null, program.getDescription(),
-                program.getDefinition());
+                program.getDefinition(), program.getLink());
         programRepo.save(toVerify);
         LOGGER.info("Users program added {}", toVerify.getName());
         return toVerify;
@@ -42,7 +44,7 @@ public class ProgramService {
 
     public Program addNewProgram(Program program) {
         Program entity = new Program(program.getName(), program.getDuration(), program.getGroup(), program.getTrainer(), program.getDescription(),
-                program.getDefinition());
+                program.getDefinition(), program.getLink());
         entity.setStatus("ACCEPTED");
         programRepo.save(entity);
         LOGGER.info("Program from trainer added {}", entity.getName());

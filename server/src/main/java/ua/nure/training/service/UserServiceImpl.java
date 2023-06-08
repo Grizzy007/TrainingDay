@@ -2,6 +2,7 @@ package ua.nure.training.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.nure.training.entity.Role;
@@ -75,5 +76,15 @@ public class UserServiceImpl implements UserService {
     public void delete(Integer id) {
         userRepository.deleteById(id);
         log.info("User {} deleted", id);
+    }
+
+    @Override
+    public void update(User user) throws UsernameNotFoundException {
+        User result = userRepository.findById(user.getId()).orElse(null);
+        if (result == null) {
+            log.info("User NOT found");
+           throw new UsernameNotFoundException("User NOT found");
+        }
+        userRepository.save(user);
     }
 }
