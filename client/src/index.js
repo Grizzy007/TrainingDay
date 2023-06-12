@@ -3,20 +3,21 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
 
-import UserStore from "./store/UserStore";
-
 import router from "./router/router";
 
 import "../src/index.css";
+import UserStore from "./store/UserStore";
 
 export const Context = createContext(null);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Context.Provider value={{
-      user: new UserStore(),
-    }}>
+    <Context.Provider
+      value={{
+        user: new UserStore(),
+      }}
+    >
         <RouterProvider router={router} />
     </Context.Provider>
   </React.StrictMode>

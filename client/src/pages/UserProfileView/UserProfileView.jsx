@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
@@ -6,15 +6,20 @@ import MainLayout from "../../components/MainLayout";
 import { IconUserProfile } from "../../components/Icons";
 import InputControl from "../../components/InputControl";
 
-import { Context } from "../..";
-import { updateUser } from "../../http/userAPI";
+import useUserProfileMutations from "../../mutation/useUserProfileMutations";
+
+// import { Context } from "../..";
+// import { updateUser } from "../../hooks/userAPI";
 
 import { PAGE } from "../../config/config";
 
 
 const UserProfileView = observer(() => {
-  const { user } = useContext(Context);
+  // const { user } = useContext(Context);
   const navigate = useNavigate();
+
+  const { updateUserProfile } = useUserProfileMutations();
+
 
   const defaultUserDate = {
     userName: "",
@@ -22,11 +27,6 @@ const UserProfileView = observer(() => {
     email: "",
     phone: "",
   };
-
-  
-  // console.log(user.userData());
-  // console.log(user.userData);
-  // console.log(user.userData());
 
   const [userData, setUserDate] = useState(defaultUserDate);
 
@@ -42,26 +42,22 @@ const UserProfileView = observer(() => {
   const handleSave = async(event) => {
     event.preventDefault();
 
-    const response = await updateUser(userData);
+    updateUserProfile(userData);
 
-    setUserDate(response);
+    // setUserDate(response);
   };
 
   const handleCancel = (event) => {
     event.preventDefault();
 
-    setUserDate(user);
+    // setUserDate(user);
   };
 
   const handleLogOut = () => {
-    user.setIsAuth(false);
-    user.setUser(null);
+    // user.setIsAuth(false);
+    // user.setUser(null);
     navigate(PAGE.NAVIGATE.PATH);
   };
-
-  useEffect(() => {
-    console.log(userData); 
-  })
 
   return (
     <MainLayout>
