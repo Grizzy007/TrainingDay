@@ -5,6 +5,7 @@ import FooterLayout from "../FooterLayout";
 
 const MainLayout = (props) => {
   const { children } = props;
+
   return (
     <div
       className="c-main-layout"

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import { Context } from "../..";
@@ -10,15 +10,16 @@ const GuardRouter = observer((props) => {
 
   const { user } = useContext(Context);
 
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user.isAuth) {
+      user.setGuardPath(location.pathname);
       navigate(PAGE.REGISTRATION.PATH);
     }
-
-    
-  }, [navigate, user.isAuth]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   return <>{children}</>;
 });

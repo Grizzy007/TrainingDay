@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
@@ -6,29 +6,25 @@ import MainLayout from "../../components/MainLayout";
 import { IconUserProfile } from "../../components/Icons";
 import InputControl from "../../components/InputControl";
 
-import useUserProfileMutations from "../../mutation/useUserProfileMutations";
-
-// import { Context } from "../..";
-// import { updateUser } from "../../hooks/userAPI";
+import { Context } from "../..";
 
 import { PAGE } from "../../config/config";
+import { updateUser } from "../../hooks/userAPI";
 
 
 const UserProfileView = observer(() => {
-  // const { user } = useContext(Context);
   const navigate = useNavigate();
 
-  const { updateUserProfile } = useUserProfileMutations();
-
+  const { user } = useContext(Context);
 
   const defaultUserDate = {
-    userName: "",
-    birth: "",
+    nickname: "",
+    birthday: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
   };
 
-  const [userData, setUserDate] = useState(defaultUserDate);
+  const [userData, setUserDate] = useState(user.getUserData || defaultUserDate);
 
   const handleChange = (event) => {
     const eventTarget = event.currentTarget;
@@ -39,10 +35,19 @@ const UserProfileView = observer(() => {
     });
   };
 
+  const updateUserData = async (data) => {
+    try {
+      const response = await updateUser(data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSave = async(event) => {
     event.preventDefault();
 
-    updateUserProfile(userData);
+    updateUserData(userData);
 
     // setUserDate(response);
   };
@@ -54,8 +59,9 @@ const UserProfileView = observer(() => {
   };
 
   const handleLogOut = () => {
-    // user.setIsAuth(false);
-    // user.setUser(null);
+    user.setIsAuth(false);
+    user.setUserData(null);
+    localStorage.setItem('token', '')
     navigate(PAGE.NAVIGATE.PATH);
   };
 
@@ -87,18 +93,18 @@ const UserProfileView = observer(() => {
             <InputControl
               label="Username"
               type="text"
-              name="userName"
+              name="nickname"
               placeholder="Enter your name"
               onChange={handleChange}
-              value={userData.userName}
+              value={userData.nickname || ''}
             />
             <InputControl
               label="Date of Birth"
               type="date"
-              name="birth"
+              name="birthday"
               placeholder="Enter your name"
               onChange={handleChange}
-              value={userData.birth}
+              value={userData.birthday || ''}
             />
             <InputControl
               label="Email"
@@ -106,15 +112,15 @@ const UserProfileView = observer(() => {
               name="email"
               placeholder="Enter your email"
               onChange={handleChange}
-              value={userData.email}
+              value={userData.email || ''}
             />
             <InputControl
               label="Mobile"
               type="text"
-              name="phone"
+              name="phoneNumber"
               placeholder="+380 97 886 0761"
               onChange={handleChange}
-              value={userData.phone}
+              value={userData.phoneNumber || ''}
             />
           </div>
           <div className="d-grid gap-2 d-md-block">

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import { login, registration } from "../../hooks/userApi";
+import { login, registration } from "../../hooks/userAPI";
+import { Context } from "../..";
 
 import rock from "../../assert/photo/authentication/rock.jpg";
 
@@ -9,22 +10,13 @@ import { PAGE } from "../../config/config";
 
 import MainLayout from "../../components/MainLayout";
 
-// import useUserProfileMutations from "../../mutation/useUserProfileMutations";
-
 import "./AuthFormView.css";
-
-// import { useRecoilValue } from "recoil";
-// import filterAuthErrorState from "../../newStore/selector/filterAuthErrorState";
 
 const AuthFormView = observer(() => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // const { registerUser, loginUser } = useUserProfileMutations();
-
-  // const authErrorUser = useRecoilValue(filterAuthErrorState);
-
-  // const isLogin = location.pathname === PAGE.LOGIN.PATH;
+  const { user } = useContext(Context);
 
   const defaultAuthDate = {
     login: null,
@@ -40,15 +32,13 @@ const AuthFormView = observer(() => {
   };
 
   const errorText = {
-    login: 'No valid your email',
-    password: 'Password must be more than 6 characters',
+    login: "No valid your email",
+    password: "Password must be more than 6 characters",
     confirmPassword: "Passwords should be equal",
-  }
-  
+  };
+
   const emailRegExp =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-/.]+[.][a-zA-Z0-9-]+$/;
-
-  // const { user } = useContext(Context);
 
   const [authData, setAuthData] = useState(defaultAuthDate);
   const [formError, setFormError] = useState(defaultFormError);
@@ -68,6 +58,10 @@ const AuthFormView = observer(() => {
       ...defaultFormError,
     };
 
+    // if (!currentFormDate.login && !currentFormDate.password) {
+    //   return tempFormError;
+    // }
+
     if (!validateEmail(currentFormDate.login)) {
       tempFormError.login = errorText.login;
       tempFormError.hasError = true;
@@ -80,7 +74,12 @@ const AuthFormView = observer(() => {
 
     if (location.pathname === PAGE.LOGIN.PATH) return tempFormError;
 
-    if (!validateConfirmPassword(currentFormDate.password, currentFormDate.confirmPassword)) {
+    if (
+      !validateConfirmPassword(
+        currentFormDate.password,
+        currentFormDate.confirmPassword
+      )
+    ) {
       tempFormError.confirmPassword = errorText.confirmPassword;
       tempFormError.hasError = true;
     }
@@ -110,14 +109,15 @@ const AuthFormView = observer(() => {
       ...formError,
       [eventTarget.name]: null,
     };
-    
-    setFormError(clearCurrentError);
 
-    // if (formError.password !== errorText.password) {
-    //   setFormError({ ...defaultFormError });
-    // } else {
-    //   setFormError(clearCurrentError);
-    // }
+    if (
+      formError.password !== errorText.password &&
+      formError.confirmPassword !== errorText.confirmPassword
+    ) {
+      setFormError({ ...defaultFormError });
+    } else {
+      setFormError(clearCurrentError);
+    }
   };
 
   const handleBlur = (event) => {
@@ -158,29 +158,58 @@ const AuthFormView = observer(() => {
     }
   };
 
+  const registerUser = async (data) => {
+    try {
+      await registration(data);
+      navigate(PAGE.LOGIN.PATH);
+    } catch (error) {
+      setFormError({
+        ...formError,
+        confirmPassword: error.response.data.error,
+        hasError: true,
+      });
+    }
+  };
+
+  const loginUser = async (data) => {
+    try {
+      const response = await login(data);
+      user.setUserData(response);
+      user.setIsAuth(true);
+      navigate(user.getGuardPath)
+    } catch (error) {
+      setFormError({
+        ...formError,
+        confirmPassword: error.response.data.error,
+        hasError: true,
+      });
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (formError.hasError) return;
 
     if (location.pathname === PAGE.REGISTRATION.PATH) {
-      const response = registration(authData);
-      console.log(response);
+      return registerUser(authData);
+      // console.log(response);
     }
 
     if (location.pathname === PAGE.LOGIN.PATH) {
-      return login(authData);
+      return loginUser(authData);
     }
   };
 
   useEffect(() => {
-    // console.log(session.sessionData.hasError);
+    const isHasFormError = formError.hasError;
+    const isValidateError = validateForm(authData).hasError;
     if (!authData.login && !authData.password) {
       setIsDisabledBtn(true);
     } else {
-      setIsDisabledBtn(formError.hasError && validateForm(authData).hasError);
+      setIsDisabledBtn(isHasFormError || isValidateError);
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formError]);
 
@@ -218,7 +247,9 @@ const AuthFormView = observer(() => {
                   onBlur={handleBlur}
                 />
                 {formError.password && (
-                  <span className="v-auth-input__error">{formError.password}</span>
+                  <span className="v-auth-input__error">
+                    {formError.password}
+                  </span>
                 )}
               </div>
               {location.pathname === PAGE.REGISTRATION.PATH && (

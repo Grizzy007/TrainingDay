@@ -1,0 +1,25 @@
+.c-textarea-program-control {
+  min-width: 700px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.c-textarea-program-control__textarea {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  color: #FFFFFF;
+
+  width: calc(100% - 40%);
+  height: 88px;
+  padding: 10px 10px 10px 10px;
+
+  background: #000000;
+  border: 3px solid #FFFFFF;
+  border-radius: 10px;
+}

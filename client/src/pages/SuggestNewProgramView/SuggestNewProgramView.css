@@ -4,6 +4,11 @@
   box-shadow: black 4px 30px 60px -12px inset, black 0px -30px 60px -4px inset;
 }
 
+.v-suggest-new-program__form {
+  display: flex;
+  flex-direction: column;
+}
+
 .v-suggest-new-program__container {
   display: flex;
   align-items: center;

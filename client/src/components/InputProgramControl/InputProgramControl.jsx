@@ -26,7 +26,7 @@ const InputProgramControl = (props) => {
           placeholder={placeholder}
         />
         {name === 'link' && 
-          <button onClick={handleClick} className="c-input-program-control__btn">
+          <button onClick={handleClick} disabled={value === ''} className="c-input-program-control__btn">
           <span className="fw-bold fs-5 " >CHECK</span>
         </button>
         }

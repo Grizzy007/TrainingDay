@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-// import GuardRouter from '../components/GuardRouter';
+import GuardRouter from '../components/GuardRouter';
 
 // Pages
 import NavigateVIew from '../pages/NavigateVIew';
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     path: PAGE.LOGIN.PATH,
   },
   {
-    element: <UserProfileView />,
+    element: <GuardRouter><UserProfileView /></GuardRouter>,
     path: PAGE.USERPROFILE.PATH,
   },
   {

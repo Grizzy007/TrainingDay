@@ -3,11 +3,12 @@ import { makeAutoObservable } from "mobx";
 export default class UserStore {
   constructor() {
     this._isAuth = false;
+    this._guardPath = null;
     this._user = {
-      userName: "",
-      birth: "",
-      email: "",
-      phone: "",
+      nickname: null,
+      birthday: null,
+      email: null,
+      phoneNumber: null,
     };
     makeAutoObservable(this);
   }
@@ -16,7 +17,11 @@ export default class UserStore {
     this._isAuth = bool;
   }
 
-  setUser(user) {
+  setGuardPath(pathname) {
+    this._guardPath = pathname;
+  }
+
+  setUserData(user) {
     this._user = user;
   }
 
@@ -26,5 +31,9 @@ export default class UserStore {
 
   get getUserData() {
     return this._user;
+  }
+
+  get getGuardPath() {
+    return this._guardPath;
   }
 }
