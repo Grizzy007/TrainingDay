@@ -6,6 +6,7 @@ import IconInstagram from "./IconInstagram";
 import IconUserProfile from "./IconUserProfile";
 import IconChevronDown from "./IconChevronDown";
 import IconCalendar from "./IconCalendar";
+import IconYouTubeError from "./IconYouTubeError";
 
 export {
   IconEntry,
@@ -16,4 +17,5 @@ export {
   IconUserProfile,
   IconChevronDown,
   IconCalendar,
+  IconYouTubeError,
 };

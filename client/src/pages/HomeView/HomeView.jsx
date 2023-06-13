@@ -5,7 +5,7 @@ import harbourLogoBlack from "../../assert/logo/harbour-logo-black.png";
 
 import MainLayout from "../../components/MainLayout";
 
-import "./HomeView.scss";
+import "./HomeView.css";
 
 const HomeView = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Icon.scss';
+import './Icon.css';
 
 const Icon = (props) => {
   const {

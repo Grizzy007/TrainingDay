@@ -1,17 +1,27 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from "mobx";
 
 export default class UserStore {
   constructor() {
     this._isAuth = false;
-    this._user = {};
-    makeAutoObservable(this)
+    this._guardPath = null;
+    this._user = {
+      nickname: null,
+      birthday: null,
+      email: null,
+      phoneNumber: null,
+    };
+    makeAutoObservable(this);
   }
 
   setIsAuth(bool) {
     this._isAuth = bool;
   }
 
-  setUser(user) {
+  setGuardPath(pathname) {
+    this._guardPath = pathname;
+  }
+
+  setUserData(user) {
     this._user = user;
   }
 
@@ -19,7 +29,11 @@ export default class UserStore {
     return this._isAuth;
   }
 
-  get user() {
+  get getUserData() {
     return this._user;
+  }
+
+  get getGuardPath() {
+    return this._guardPath;
   }
 }

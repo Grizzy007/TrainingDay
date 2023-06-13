@@ -2,7 +2,7 @@ import React from "react";
 import Icon from "../Icon";
 
 const IconEntry = (props) => {
-  const { size, inverse, onClick } = props;
+  const { size, inverse, onClick, style } = props;
 
   return (
     <Icon
@@ -10,6 +10,7 @@ const IconEntry = (props) => {
       inverse={inverse}
       onClick={onClick}
       classNameIconType="c-icon-entry"
+      style={style}
     >
       <svg
         viewBox="0 0 616 628"

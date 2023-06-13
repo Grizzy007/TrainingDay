@@ -7,50 +7,61 @@ import { IconUserProfile } from "../../components/Icons";
 import InputControl from "../../components/InputControl";
 
 import { Context } from "../..";
-import { updateUser } from "../../http/userAPI";
 
 import { PAGE } from "../../config/config";
+import { updateUser } from "../../hooks/userAPI";
 
 
 const UserProfileView = observer(() => {
-  const { user } = useContext(Context);
   const navigate = useNavigate();
 
+  const { user } = useContext(Context);
+
   const defaultUserDate = {
-    userName: "",
-    birth: "",
+    nickname: "",
+    birthday: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
   };
 
-  const [userData, setUserDate] = useState(user || defaultUserDate);
+  const [userData, setUserDate] = useState(user.getUserData || defaultUserDate);
 
   const handleChange = (event) => {
     const eventTarget = event.currentTarget;
-    const newUserData = {
+
+    setUserDate({
       ...userData,
       [eventTarget.name]: eventTarget.value,
-    };
-    setUserDate(newUserData);
+    });
+  };
+
+  const updateUserData = async (data) => {
+    try {
+      const response = await updateUser(data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSave = async(event) => {
     event.preventDefault();
 
-    const response = await updateUser(userData);
+    updateUserData(userData);
 
-    setUserDate(response);
+    // setUserDate(response);
   };
 
   const handleCancel = (event) => {
     event.preventDefault();
 
-    setUserDate(defaultUserDate);
+    // setUserDate(user);
   };
 
   const handleLogOut = () => {
     user.setIsAuth(false);
-    user.setUser(null);
+    user.setUserData(null);
+    localStorage.setItem('token', '')
     navigate(PAGE.NAVIGATE.PATH);
   };
 
@@ -82,18 +93,18 @@ const UserProfileView = observer(() => {
             <InputControl
               label="Username"
               type="text"
-              name="userName"
+              name="nickname"
               placeholder="Enter your name"
               onChange={handleChange}
-              value={userData.userName}
+              value={userData.nickname || ''}
             />
             <InputControl
               label="Date of Birth"
               type="date"
-              name="birth"
+              name="birthday"
               placeholder="Enter your name"
               onChange={handleChange}
-              value={userData.birth}
+              value={userData.birthday || ''}
             />
             <InputControl
               label="Email"
@@ -101,15 +112,15 @@ const UserProfileView = observer(() => {
               name="email"
               placeholder="Enter your email"
               onChange={handleChange}
-              value={userData.email}
+              value={userData.email || ''}
             />
             <InputControl
               label="Mobile"
               type="text"
-              name="phone"
+              name="phoneNumber"
               placeholder="+380 97 886 0761"
               onChange={handleChange}
-              value={userData.phone}
+              value={userData.phoneNumber || ''}
             />
           </div>
           <div className="d-grid gap-2 d-md-block">

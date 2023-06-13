@@ -1,23 +1,25 @@
 import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import { RouterProvider } from "react-router-dom";
+// import { RouterProvider } from "react-router-dom";
 
-import UserStore from "./store/UserStore";
-
-import router from "./router/router";
+// import router from "./router/router";
 
 import "../src/index.css";
+import UserStore from "./store/UserStore";
+import App from "./App";
 
 export const Context = createContext(null);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Context.Provider value={{
-      user: new UserStore(),
-    }}>
-        <RouterProvider router={router} />
+    <Context.Provider
+      value={{
+        user: new UserStore(),
+      }}
+    >    <App />
+        {/* <RouterProvider router={router} /> */}
     </Context.Provider>
   </React.StrictMode>
 );

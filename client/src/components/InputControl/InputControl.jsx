@@ -1,10 +1,7 @@
 import React from 'react';
 
-// Components
-// import { IconCalendar } from '../Icons';
-
 // Style
-import './InputControl.scss';
+import './InputControl.css';
 
 const InputControl = (props) => {
   const {

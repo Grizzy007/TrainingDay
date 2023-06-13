@@ -8,6 +8,7 @@ import NavigateVIew from '../pages/NavigateVIew';
 import AuthFormView from '../pages/AuthFormView';
 import HomeView from '../pages/HomeView';
 import UserProfileView from '../pages/UserProfileView';
+import SuggestNewProgramView from '../pages/SuggestNewProgramView';
 
 // Constant
 import { PAGE } from '../config/config';
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     element: <GuardRouter><UserProfileView /></GuardRouter>,
     path: PAGE.USERPROFILE.PATH,
+  },
+  {
+    element: <SuggestNewProgramView />,
+    path: PAGE.SUGGEST_NEW_PROGRAM.PATH,
   },
 ]);
 
