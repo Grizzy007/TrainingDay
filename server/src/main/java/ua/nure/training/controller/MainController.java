@@ -44,20 +44,6 @@ public class MainController {
         return "programs";
     }
 
-    @GetMapping(value = "/api/suggest-program")
-    @PreAuthorize("hasAuthority('read')")
-    public String suggestProgram() {
-        return "suggestProgram";
-    }
-
-    @PostMapping(value = "/api/v1/suggest-program")
-    @PreAuthorize("hasAuthority('read')")
-    public String createProgram(@RequestParam String name, @RequestParam String description,
-                                @RequestParam Integer duration, @RequestParam String muscleGroup,
-                                @RequestParam String definition, @RequestParam String link) {
-        programService.createUsersProgram(name, duration, muscleGroup, description, definition, link);
-        return "redirect:/home";
-    }
 
     @GetMapping(value = "/api/catalog/{id}")
     @PreAuthorize("hasAuthority('read')")

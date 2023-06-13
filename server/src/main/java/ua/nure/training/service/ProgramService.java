@@ -1,82 +1,24 @@
 package ua.nure.training.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import ua.nure.training.entity.Program;
-import ua.nure.training.entity.dto.ProgramDto;
-import ua.nure.training.repository.ProgramRepo;
 
-import java.util.List;
-import java.util.Optional;
+public interface ProgramService {
 
-@Service("programService")
-public class ProgramService {
-    private final ProgramRepo programRepo;
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProgramService.class);
+    Program getInfoAboutProgram(Integer id);
 
-    @Autowired
-    public ProgramService(ProgramRepo programRepo) {
-        this.programRepo = programRepo;
-    }
+    Program save(Program program);
 
-    public Program getInfoAboutProgram(Integer id) {
-        Optional<Program> prog = programRepo.findById(id);
-        if (prog.isPresent()) {
-            return prog.get();
-        }
-        return new Program();
-    }
+    Program addNewProgram(Program program);
 
-    public Program createUsersProgram(String name, Integer duration, String muscleGroup, String description,
-                                      String def, String link) {
-        ProgramDto program = new ProgramDto(name, duration, muscleGroup, description, def, link);
-        Program toVerify = new Program(
-                program.getName(), program.getDuration(), program.getGroup(), null, program.getDescription(),
-                program.getDefinition(), program.getLink());
-        programRepo.save(toVerify);
-        LOGGER.info("Users program added {}", toVerify.getName());
-        return toVerify;
-    }
+    Page<Program> getByStatus(String status, Pageable pageable);
 
-    public Program addNewProgram(Program program) {
-        Program entity = new Program(program.getName(), program.getDuration(), program.getGroup(), program.getTrainer(), program.getDescription(),
-                program.getDefinition(), program.getLink());
-        entity.setStatus("ACCEPTED");
-        programRepo.save(entity);
-        LOGGER.info("Program from trainer added {}", entity.getName());
-        return entity;
-    }
+    Page<Program> getAll(Pageable pageable);
 
-    public Page<Program> getByStatus(String status, Pageable pageable) {
-        return programRepo.findByStatusName(status, pageable);
-    }
+    void changeStatus(Program program, String status, Integer id);
 
-    public Page<Program> getAll(Pageable pageable) {
-        return programRepo.findAll(pageable);
-    }
+    void updateProgram(Integer id, String name, Integer duration, String description);
 
-    public void changeStatus(Program program, String status, Integer id) {
-        Program prog = programRepo.findById(id).orElseThrow();
-        prog.setTrainer(program.getTrainer());
-        prog.setStatus(status);
-        programRepo.save(prog);
-    }
-
-    public void updateProgram(Integer id, String name, Integer duration, String description) {
-        Program program = programRepo.findById(id).orElseThrow();
-        program.setName(name);
-        program.setDuration(duration);
-        program.setDescription(description);
-        programRepo.save(program);
-    }
-
-    public void deleteProgram(Integer id) {
-        Program program = programRepo.findById(id).orElseThrow();
-        programRepo.delete(program);
-        LOGGER.info("Program deleted {}", program.getName());
-    }
+    void deleteProgram(Integer id);
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 
@@ -14,13 +14,13 @@ public class JwtUser implements UserDetails {
     private String login;
     private String password;
     private String nickname;
-    private Calendar birthday;
+    private LocalDate birthday;
     private String phoneNumber;
     private final Date lastPasswordReset;
     private final Collection<? extends GrantedAuthority> authorities;
 
 
-    public JwtUser(Integer id, String login, String password, String nickname, Calendar birthday, String phoneNumber,
+    public JwtUser(Integer id, String login, String password, String nickname, LocalDate birthday, String phoneNumber,
                    Date lastPasswordReset, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.login = login;
@@ -59,7 +59,7 @@ public class JwtUser implements UserDetails {
         return nickname;
     }
 
-    public Calendar getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 

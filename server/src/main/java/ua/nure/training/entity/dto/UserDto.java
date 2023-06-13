@@ -3,19 +3,19 @@ package ua.nure.training.entity.dto;
 import lombok.Data;
 import ua.nure.training.entity.User;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Data
 public class UserDto {
-    private String login;
-    private Calendar birthday;
+    private String email;
+    private LocalDate birthday;
     private String nickname;
     private String phoneNumber;
 
     public static UserDto fromUser(User user){
         UserDto userDto = new UserDto();
-        userDto.setLogin(user.getLogin());
+        userDto.setEmail(user.getLogin());
         userDto.setBirthday(user.getBirthday());
         userDto.setNickname(user.getNickname());
         userDto.setPhoneNumber(user.getPhoneNumber());
@@ -23,11 +23,11 @@ public class UserDto {
         return userDto;
     }
 
-    public Optional<String> getLogin() {
-        return Optional.of(login);
+    public Optional<String> getEmail() {
+        return Optional.of(email);
     }
 
-    public Optional<Calendar> getBirthday() {
+    public Optional<LocalDate> getBirthday() {
         if(birthday == null){
             return Optional.empty();
         }

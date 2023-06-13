@@ -58,7 +58,7 @@ public class AuthController {
         String token = jwtTokenProvider.createToken(jwtUser, user.getRoles());
         Map<Object, Object> response = new HashMap<>();
         response.put("token", token);
-        response.put("email", dto.getLogin().orElse(null));
+        response.put("email", dto.getEmail().orElse(null));
         response.put("nickname", dto.getNickname().orElse(null));
         response.put("birthday", dto.getBirthday().orElse(null));
         response.put("phoneNumber", dto.getPhoneNumber().orElse(null));
@@ -76,8 +76,17 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
+        UserDto dto = UserDto.fromUser(user);
+
         String token = jwtTokenProvider.createToken(jwtUser, user.getRoles());
         Map<Object, Object> response = new HashMap<>();
+        response.put("email", dto.getEmail().orElse(null));
+        response.put("nickname", dto.getNickname().orElse(null));
+        if(dto.getBirthday().isPresent()){
+            response.put("birthday", dto.getBirthday().get());
+        }
+        response.put("birthday", dto.getBirthday().orElse(null));
+        response.put("phoneNumber", dto.getPhoneNumber().orElse(null));
         response.put("token", token);
 
         return ResponseEntity.ok(response);

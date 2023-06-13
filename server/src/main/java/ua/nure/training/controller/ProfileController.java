@@ -38,7 +38,7 @@ public class ProfileController {
     }
 
     @PatchMapping(value = "profile")
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto){
+    public ResponseEntity updateUser(@RequestBody UserDto userDto){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         JwtUser jwtUser = (JwtUser) auth.getPrincipal();
         User user = userService.findByLogin(jwtUser.getLogin());
@@ -47,13 +47,13 @@ public class ProfileController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        user.setLogin(userDto.getLogin().orElse(null));
+        user.setLogin(userDto.getEmail().orElse(null));
         user.setBirthday(userDto.getBirthday().orElse(null));
         user.setNickname(userDto.getNickname().orElse(null));
         user.setPhoneNumber(userDto.getPhoneNumber().orElse(null));
 
         userService.update(user);
 
-        return new ResponseEntity<>(userDto, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

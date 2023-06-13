@@ -13,15 +13,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import ua.nure.training.security.jwt.JwtConfigurer;
 import ua.nure.training.security.jwt.JwtTokenProvider;
 
-import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 
     private JwtTokenProvider jwtTokenProvider;
 
     private static final String PROFILE_ENDPOINT = "/api/profile";
     private static final String PROGRAM_ENDPOINT = "/api/catalog/**";
+    private static final String SUGGEST_ENDPOINT = "/api/suggest";
     private static final String GUEST_ENDPOINT = "/**";
 
     public SecurityConfig(@Lazy JwtTokenProvider jwtTokenProvider) {
@@ -29,27 +30,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://localhost:3000", "https://localhost:3001", "https://localhost:8080"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "PUT", "DELETE"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable();
         http.
                 httpBasic().disable()
-                .csrf().disable()
-                .cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
@@ -67,4 +56,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .apply(new JwtConfigurer(jwtTokenProvider));
 
     }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
+
 }
