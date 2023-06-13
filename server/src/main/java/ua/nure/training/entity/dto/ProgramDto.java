@@ -1,83 +1,48 @@
 package ua.nure.training.entity.dto;
 
+import lombok.Data;
+import ua.nure.training.entity.Program;
 import ua.nure.training.entity.Status;
+import ua.nure.training.repository.StatusRepository;
 
+@Data
 public class ProgramDto {
-    private Integer id;
     private String name;
     private Integer duration;
-    private String group;
+    private String muscleGroup;
     private String description;
     private Status status;
+    private String link;
     private String definition;
 
-    public ProgramDto(String name, Integer duration, String group, String description, String definition) {
+    private StatusRepository statusRepository;
+
+    public ProgramDto(String name, Integer duration, String group, String description, String definition, String link) {
         this.name = name;
         this.duration = duration;
-        this.group = group;
+        this.muscleGroup = group;
         this.description = description;
-        this.status = new Status("NEW");
+        if(!statusRepository.findByName("NEW").isPresent()) {
+            this.status = new Status("NEW");
+        } else {
+            this.status = statusRepository.findByName("NEW").get();
+        }
         this.definition = definition;
+        this.link = link;
     }
 
-    public String getGroup() {
-        return group;
-    }
+    public static Program toProgram(ProgramDto dto){
+        Program program = new Program();
+        program.setStatus(dto.getStatus());
+        program.setDescription(dto.getDescription());
+        program.setDuration(dto.getDuration());
+        program.setName(dto.getName());
+        program.setGroup(dto.getMuscleGroup());
+        program.setLink(dto.getLink());
+        program.setDefinition(dto.getDefinition());
+        program.setTrainer(null);
 
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public ProgramDto() { }
-
-    public ProgramDto(String name, Integer duration, String description) {
-        this.name = name;
-        this.duration = duration;
-        this.description = description;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public String getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(String definition) {
-        this.definition = definition;
+        return program;
     }
 }
 

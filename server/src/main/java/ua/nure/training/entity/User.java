@@ -1,6 +1,7 @@
 package ua.nure.training.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -15,12 +16,12 @@ public class User {
     @Column(name = "pass")
     private String password;
     @Column(name = "birthday")
-    private Calendar birthday;
+    private LocalDate birthday;
     @Column(name = "nickname")
     private String nickname;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(  name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -34,7 +35,7 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password, Calendar birthday, String nickname, String phoneNumber) {
+    public User(String login, String password, LocalDate birthday, String nickname, String phoneNumber) {
         this.login = login;
         this.password = password;
         this.birthday = birthday;
@@ -66,11 +67,11 @@ public class User {
         this.password = password;
     }
 
-    public Calendar getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Calendar birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

@@ -10,11 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ua.nure.training.entity.Role;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class JwtTokenProvider {
@@ -26,6 +30,7 @@ public class JwtTokenProvider {
 
     private UserDetailsService userDetailsService;
 
+    @Autowired
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
@@ -40,8 +45,8 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String login, List<Role> roles) {
-        Claims claims = Jwts.claims().setSubject(login);
+    public String createToken(JwtUser jwtUser, List<Role> roles) {
+        Claims claims = Jwts.claims().setSubject(jwtUser.getLogin());
         claims.put("roles", getRoleNames(roles));
 
         Date now = new Date();
@@ -55,8 +60,9 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    @Transactional
     public Authentication getAuth(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(token);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getLogin(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -66,7 +72,7 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;

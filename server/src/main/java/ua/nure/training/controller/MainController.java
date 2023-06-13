@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.nure.training.entity.Program;
@@ -14,7 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/")
 public class MainController {
     private final ProgramService programService;
@@ -26,10 +26,10 @@ public class MainController {
 
     @GetMapping(value = {"/", "/home"})
     public String main() {
-        return "index";
+        return "Hello world!";
     }
 
-    @GetMapping(value = "/api/v1/catalog")
+    @GetMapping(value = "/api/catalog")
     public String catalog(
             Model model,
             @RequestParam(value = "size", required = false, defaultValue = "5") Integer size,
@@ -44,22 +44,8 @@ public class MainController {
         return "programs";
     }
 
-    @GetMapping(value = "/api/v1/suggest-program")
-    @PreAuthorize("hasAuthority('read')")
-    public String suggestProgram() {
-        return "suggestProgram";
-    }
 
-    @PostMapping(value = "/api/v1/suggest-program")
-    @PreAuthorize("hasAuthority('read')")
-    public String createProgram(@RequestParam String name, @RequestParam String description,
-                                @RequestParam Integer duration, @RequestParam String muscleGroup,
-                                @RequestParam String definition) {
-        programService.createUsersProgram(name, duration, muscleGroup, description, definition);
-        return "redirect:/home";
-    }
-
-    @GetMapping(value = "/api/v1/catalog/{id}")
+    @GetMapping(value = "/api/catalog/{id}")
     @PreAuthorize("hasAuthority('read')")
     public String programInfo(@PathVariable(value = "id") Integer id, Model model) {
         Program program = programService.getInfoAboutProgram(id);

@@ -15,7 +15,7 @@ services:
     image: grizzy007/trd
     container_name: trd
     ports:
-      - "8080:8087"
+      - "8080:8080"
     restart: always
     environment:
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql/trd"
