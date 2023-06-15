@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import { Context } from "../..";
@@ -14,12 +14,14 @@ const GuardRouter = observer((props) => {
   // const navigate = useNavigate();
 
   const checkAccessPage = () => {
-    if (!user.isAuth) {
+    console.log(user.getIsAuth);
+    console.log(user.getUserData);
+    if (!user.getIsAuth) {
       user.setGuardPath(location.pathname);
       return <AuthFormView />;
     }
-    
-    if (user.isAuth) {
+
+    if (user.getIsAuth) {
       return children;
     }
   };

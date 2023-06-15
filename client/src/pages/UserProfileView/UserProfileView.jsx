@@ -46,6 +46,7 @@ const UserProfileView = observer(() => {
   const handleSave = async (event) => {
     event.preventDefault();
 
+    user.setUserData(userData);
     updateUserData(userData);
 
     // setUserDate(response);

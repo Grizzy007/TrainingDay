@@ -216,6 +216,7 @@ const AuthFormView = observer(() => {
     if (location.pathname !== navigate(PAGE.REGISTRATION.PATH)) {
       navigate(PAGE.REGISTRATION.PATH);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
