@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import { Context } from "../..";
-import { PAGE } from "../../config/config";
+import AuthFormView from "../../pages/AuthFormView/AuthFormView";
 
 const GuardRouter = observer((props) => {
   const { children } = props;
@@ -11,17 +11,20 @@ const GuardRouter = observer((props) => {
   const { user } = useContext(Context);
 
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
+  const checkAccessPage = () => {
     if (!user.isAuth) {
       user.setGuardPath(location.pathname);
-      navigate(PAGE.REGISTRATION.PATH);
+      return <AuthFormView />;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+    
+    if (user.isAuth) {
+      return children;
+    }
+  };
 
-  return <>{children}</>;
+  return <>{checkAccessPage()}</>;
 });
 
 export default GuardRouter;

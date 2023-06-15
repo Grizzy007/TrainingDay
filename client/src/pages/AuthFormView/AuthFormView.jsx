@@ -176,7 +176,7 @@ const AuthFormView = observer(() => {
       const response = await login(data);
       user.setUserData(response);
       user.setIsAuth(true);
-      navigate(user.getGuardPath)
+      navigate(user.getGuardPath);
     } catch (error) {
       setFormError({
         ...formError,
@@ -209,9 +209,14 @@ const AuthFormView = observer(() => {
     } else {
       setIsDisabledBtn(isHasFormError || isValidateError);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formError]);
+
+  useEffect(() => {
+    if (location.pathname !== navigate(PAGE.REGISTRATION.PATH)) {
+      navigate(PAGE.REGISTRATION.PATH);
+    }
+  }, []);
 
   return (
     <MainLayout>

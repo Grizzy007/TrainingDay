@@ -14,7 +14,7 @@ const App = observer(() => {
         user.setUserData(data);
         user.setIsAuth(true);
       })
-      .catch(() => console.log('Empty local storage'));
+      .catch(() => console.log("Empty local storage"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

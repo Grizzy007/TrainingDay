@@ -35,7 +35,7 @@ const router = createBrowserRouter([
     path: PAGE.USERPROFILE.PATH,
   },
   {
-    element: <SuggestNewProgramView />,
+    element: <GuardRouter><SuggestNewProgramView /></GuardRouter>,
     path: PAGE.SUGGEST_NEW_PROGRAM.PATH,
   },
 ]);

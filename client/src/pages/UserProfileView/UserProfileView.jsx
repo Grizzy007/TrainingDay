@@ -11,7 +11,6 @@ import { Context } from "../..";
 import { PAGE } from "../../config/config";
 import { updateUser } from "../../hooks/userAPI";
 
-
 const UserProfileView = observer(() => {
   const navigate = useNavigate();
 
@@ -44,7 +43,7 @@ const UserProfileView = observer(() => {
     }
   };
 
-  const handleSave = async(event) => {
+  const handleSave = async (event) => {
     event.preventDefault();
 
     updateUserData(userData);
@@ -61,7 +60,7 @@ const UserProfileView = observer(() => {
   const handleLogOut = () => {
     user.setIsAuth(false);
     user.setUserData(null);
-    localStorage.setItem('token', '')
+    localStorage.setItem("token", "");
     navigate(PAGE.NAVIGATE.PATH);
   };
 
@@ -96,7 +95,7 @@ const UserProfileView = observer(() => {
               name="nickname"
               placeholder="Enter your name"
               onChange={handleChange}
-              value={userData.nickname || ''}
+              value={userData.nickname || ""}
             />
             <InputControl
               label="Date of Birth"
@@ -104,7 +103,7 @@ const UserProfileView = observer(() => {
               name="birthday"
               placeholder="Enter your name"
               onChange={handleChange}
-              value={userData.birthday || ''}
+              value={userData.birthday || ""}
             />
             <InputControl
               label="Email"
@@ -112,7 +111,7 @@ const UserProfileView = observer(() => {
               name="email"
               placeholder="Enter your email"
               onChange={handleChange}
-              value={userData.email || ''}
+              value={userData.email || ""}
             />
             <InputControl
               label="Mobile"
@@ -120,7 +119,7 @@ const UserProfileView = observer(() => {
               name="phoneNumber"
               placeholder="+380 97 886 0761"
               onChange={handleChange}
-              value={userData.phoneNumber || ''}
+              value={userData.phoneNumber || ""}
             />
           </div>
           <div className="d-grid gap-2 d-md-block">

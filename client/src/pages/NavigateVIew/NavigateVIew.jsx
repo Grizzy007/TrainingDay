@@ -15,15 +15,13 @@ const NavigateVIew = () => {
 
   return (
     <div className="v-navigate">
-      <div className="v-navigate__block v-navigate__block_team">
+      <div
+        className="v-navigate__block v-navigate__block_team"
+        onClick={() => navigate(PAGE.HOME.PATH)}
+      >
         <div className="v-navigate__block-wrapper">
           <div className="v-navigate__block-caption">
-            <h2
-              className="v-navigate__caption"
-              onClick={() => navigate(PAGE.HOME.PATH)}
-            >
-              HOME
-            </h2>
+            <h2 className="v-navigate__caption">HOME</h2>
           </div>
           <div className="v-navigate__description">
             <div className="v-navigate__stick" />
@@ -48,10 +46,13 @@ const NavigateVIew = () => {
           </div>
         </div>
       </div>
-      <div className="v-navigate__block v-navigate__block_suggest-new-program">
+      <div
+        className="v-navigate__block v-navigate__block_suggest-new-program"
+        onClick={() => navigate(PAGE.SUGGEST_NEW_PROGRAM.PATH)}
+      >
         <div className="v-navigate__block-wrapper">
           <div className="v-navigate__block-caption">
-            <h2 onClick={() => navigate(PAGE.SUGGEST_NEW_PROGRAM.PATH)} className="v-navigate__caption">SUGGEST NEW PROGRAM</h2>
+            <h2 className="v-navigate__caption">SUGGEST NEW PROGRAM</h2>
           </div>
           <div className="v-navigate__description">
             <div className="v-navigate__stick" />
@@ -62,11 +63,14 @@ const NavigateVIew = () => {
           </div>
         </div>
       </div>
-      <div className="v-navigate__block v-navigate__block_user-profile">
+      <div
+        className="v-navigate__block v-navigate__block_user-profile"
+        onClick={() => navigate(PAGE.USERPROFILE.PATH)}
+      >
         <div className="v-navigate__block-wrapper">
           <div className="v-navigate__block-caption">
             <h2 className="v-navigate__caption">
-              <IconEntry onClick={() => navigate(PAGE.USERPROFILE.PATH)}/>
+              <IconEntry />
             </h2>
           </div>
           <div className="v-navigate__description">
