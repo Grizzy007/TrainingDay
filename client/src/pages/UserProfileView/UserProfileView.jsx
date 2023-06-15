@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
+import toast, { Toaster } from "react-hot-toast";
 
 import MainLayout from "../../components/MainLayout";
 import { IconUserProfile } from "../../components/Icons";
@@ -36,10 +37,10 @@ const UserProfileView = observer(() => {
 
   const updateUserData = async (data) => {
     try {
-      const response = await updateUser(data);
-      console.log(response);
+      await updateUser(data);
+      toast.success("Successfully updated!");
     } catch (error) {
-      console.log(error);
+      toast.error(`${error.response.data.error}`);
     }
   };
 
@@ -48,14 +49,11 @@ const UserProfileView = observer(() => {
 
     user.setUserData(userData);
     updateUserData(userData);
-
-    // setUserDate(response);
   };
 
   const handleCancel = (event) => {
     event.preventDefault();
-
-    // setUserDate(user);
+    setUserDate(user.getUserData);
   };
 
   const handleLogOut = () => {
@@ -67,6 +65,7 @@ const UserProfileView = observer(() => {
 
   return (
     <MainLayout>
+      <Toaster />
       <div className="v-auth row g-0">
         <div className="v-auth__left col-6 p-4 col-md-3 text-white bg-black d-flex flex-column justify-content-around">
           <div className="v-auth__wrap-user">
@@ -126,7 +125,7 @@ const UserProfileView = observer(() => {
           <div className="d-grid gap-2 d-md-block">
             <button
               style={{ minWidth: 220 }}
-              className="btn btn-secondary btn-lg me-2 "
+              className="btn btn-danger btn-lg me-2 "
               type="button"
               onClick={handleCancel}
             >
@@ -134,7 +133,7 @@ const UserProfileView = observer(() => {
             </button>
             <button
               style={{ minWidth: 220 }}
-              className="btn btn-secondary btn-lg ms-2"
+              className="btn btn-success btn-lg ms-2"
               type="button"
               onClick={handleSave}
             >

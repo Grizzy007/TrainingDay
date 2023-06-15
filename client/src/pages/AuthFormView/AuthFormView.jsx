@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { login, registration } from "../../hooks/userAPI";
 import { Context } from "../..";
+import toast, { Toaster } from "react-hot-toast";
 
 import rock from "../../assert/photo/authentication/rock.jpg";
 
@@ -161,8 +162,13 @@ const AuthFormView = observer(() => {
   const registerUser = async (data) => {
     try {
       await registration(data);
+      toast.success("Successfully registered!");
+      toast("Now, we can login", {
+        icon: "📢",
+      });
       navigate(PAGE.LOGIN.PATH);
     } catch (error) {
+      toast.error('Oops. Something went wrong');
       setFormError({
         ...formError,
         confirmPassword: error.response.data.error,
@@ -176,11 +182,15 @@ const AuthFormView = observer(() => {
       const response = await login(data);
       user.setUserData(response);
       user.setIsAuth(true);
-      navigate(user.getGuardPath);
+      toast.success("Successfully login!", {
+        duration: 1000,
+      });
+      setTimeout(() => navigate(user.getGuardPath), 1000);
     } catch (error) {
+      toast.error(`${error.response.data.error}`);
       setFormError({
         ...formError,
-        confirmPassword: error.response.data.error,
+        password: error.response.data.error,
         hasError: true,
       });
     }
@@ -213,14 +223,16 @@ const AuthFormView = observer(() => {
   }, [formError]);
 
   useEffect(() => {
-    if (location.pathname !== navigate(PAGE.REGISTRATION.PATH)) {
+    if (location.pathname === PAGE.SUGGEST_NEW_PROGRAM.PATH || location.pathname === PAGE.USERPROFILE.PATH) {
       navigate(PAGE.REGISTRATION.PATH);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setFormError(defaultFormError);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   return (
     <MainLayout>
+      <Toaster />
       <div className="v-auth">
         <div className="container d-flex justify-content-between align-items-center">
           <form className="v-auth__form ">
