@@ -18,6 +18,8 @@ const CatalogView = observer(() => {
     navigate(`/catalog/${id}`);
   };
 
+  console.log('catalog store', program.getCatalogData);
+
   useEffect(() => {
     activeCard.setActiveCarData(null);
   // eslint-disable-next-line react-hooks/exhaustive-deps

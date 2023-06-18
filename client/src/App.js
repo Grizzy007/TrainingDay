@@ -18,7 +18,10 @@ const App = observer(() => {
       })
       .catch(() => console.log("Empty local storage"));
     catalog()
-      .then((data) => program.setCatalogData(data))
+      .then((data) => {
+        console.log("data catalog", data);
+        program.setCatalogData(data);
+      })
       .catch(() => console.log("Error catalog"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

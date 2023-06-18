@@ -8,7 +8,6 @@ import "./SuggestNewProgramView.css";
 import { IconYouTubeError } from "../../components/Icons";
 import TextAreaProgramControl from "../../components/TextAreaProgramControl/TextAreaProgramControl";
 import { newProgram } from "../../hooks/programApi";
-import { Context } from "../..";
 
 const SuggestNewProgramView = () => {
   const defaultFormData = {
@@ -19,8 +18,6 @@ const SuggestNewProgramView = () => {
     definition: "",
     description: "",
   };
-
-  const { user } = useContext(Context);
 
   const youtubeRegex =
     // eslint-disable-next-line no-useless-escape
@@ -49,10 +46,10 @@ const SuggestNewProgramView = () => {
     setIsViewVideo(true);
   };
 
-  const handleSubmit = async() => {
-    const response = await newProgram({...formData, trainer: user.getUserData.nickname});
+  const handleSubmit = async () => {
+    const response = await newProgram(formData);
     console.log(response.status);
-  }
+  };
 
   return (
     <MainLayout>
