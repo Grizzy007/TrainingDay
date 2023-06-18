@@ -59,7 +59,7 @@ export default class ProgramStore {
     makeAutoObservable(this);
   }
 
-  set setCatalogData(program) {
+  setCatalogData(program) {
     this._program = program;
   }
 

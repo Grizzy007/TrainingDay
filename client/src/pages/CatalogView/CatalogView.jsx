@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import baki from "../../assert/photo/catalog/baki.jpg";
 
@@ -8,14 +8,20 @@ import "./CatalogView.css";
 import { Context } from "../..";
 import Card from "../../components/Card/Card";
 import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-const CatalogView = () => {
-  const { program } = useContext(Context);
+const CatalogView = observer(() => {
+  const { program, activeCard } = useContext(Context);
   const navigate = useNavigate();
 
   const handleSelectCard = (id) => {
     navigate(`/catalog/${id}`);
   };
+
+  useEffect(() => {
+    activeCard.setActiveCarData(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <MainLayout>
@@ -66,6 +72,6 @@ const CatalogView = () => {
       </div>
     </MainLayout>
   );
-};
+});
 
 export default CatalogView;

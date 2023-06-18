@@ -9,6 +9,7 @@ import "../src/index.css";
 import UserStore from "./store/UserStore";
 import App from "./App";
 import ProgramStore from "./store/ProgramStore";
+import ActiveCardStore from "./store/ActiveCardStore";
 
 export const Context = createContext(null);
 
@@ -19,6 +20,7 @@ root.render(
       value={{
         user: new UserStore(),
         program: new ProgramStore(),
+        activeCard: new ActiveCardStore(),
       }}
     >
       <App />

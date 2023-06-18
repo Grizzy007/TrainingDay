@@ -1,0 +1,51 @@
+.v-card {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 178px);
+  padding: 70px 0px;
+}
+
+.v-card__time-group-wrapper {
+  position: relative;
+  width: 150px;
+  height: 46px;
+  background-color: black;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.v-card__time::after {
+  content: '';
+  position: absolute;
+  background-color: white;
+  width: 4px;
+  height: 46px;
+  top: 0;
+  left: 49px;
+}
+
+.v-card__title {
+  margin-bottom: 60px;
+}
+
+.v-card__clarifications {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.v-card__video {
+  min-width: 100%;
+  min-height: 606px;
+  margin-bottom: 40px;
+}
+
+.v-card__description {
+  background-color: black;
+  border-radius: 6px;
+  padding: 20px;
+}
