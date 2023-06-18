@@ -32,7 +32,10 @@ const NavigateVIew = () => {
           </div>
         </div>
       </div>
-      <div className="v-navigate__block v-navigate__block_catalog">
+      <div
+        className="v-navigate__block v-navigate__block_catalog"
+        onClick={() => navigate(PAGE.CATALOG.PATH)}
+      >
         <div className="v-navigate__block-wrapper">
           <div className="v-navigate__block-caption">
             <h2 className="v-navigate__caption">CATALOG</h2>

@@ -1,0 +1,27 @@
+.v-catalog {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 178px);
+}
+
+.v-catalog__caption {
+  min-width: 100%;
+  height: 742px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("../../assert/photo/catalog/training.jpg") center/cover no-repeat;
+  box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  margin-bottom: 80px;
+}
+
+.v-catalog__description {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 134px;
+}
+
+.v-catalog__quote {
+  margin-bottom: 36px;
+}

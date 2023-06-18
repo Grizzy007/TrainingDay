@@ -37,7 +37,7 @@ const HeaderLayout = () => {
             >
               <div className="navbar-nav">
                 <NavLink
-                  to="/home"
+                  to={PAGE.HOME.PATH}
                   className={({ isActive }) =>
                     handleCheckActiveLink({ isActive })
                   }
@@ -45,7 +45,7 @@ const HeaderLayout = () => {
                   HOME
                 </NavLink>
                 <NavLink
-                  to="/catalog"
+                  to={PAGE.CATALOG.PATH}
                   className={({ isActive }) =>
                     handleCheckActiveLink({ isActive })
                   }
@@ -53,7 +53,7 @@ const HeaderLayout = () => {
                   CATALOG
                 </NavLink>
                 <NavLink
-                  to="/suggest-new-program"
+                  to={PAGE.SUGGEST_NEW_PROGRAM.PATH}
                   className={({ isActive }) =>
                     handleCheckActiveLink({ isActive })
                   }
@@ -61,7 +61,7 @@ const HeaderLayout = () => {
                   SUGGESTION NEW PROGRAM
                 </NavLink>
                 <NavLink
-                  to="/profile"
+                  to={PAGE.USERPROFILE.PATH}
                   className={({ isActive }) =>
                     handleCheckActiveLink({ isActive })
                   }

@@ -12,6 +12,7 @@ import SuggestNewProgramView from '../pages/SuggestNewProgramView';
 
 // Constant
 import { PAGE } from '../config/config';
+import CatalogView from '../pages/CatalogView/CatalogView';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     element: <AuthFormView />,
     path: PAGE.LOGIN.PATH,
+  },
+  {
+    element: <CatalogView />,
+    path: PAGE.CATALOG.PATH,
   },
   {
     element: <GuardRouter><UserProfileView /></GuardRouter>,

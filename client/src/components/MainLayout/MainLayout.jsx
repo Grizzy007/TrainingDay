@@ -13,8 +13,6 @@ const MainLayout = (props) => {
     >
       <HeaderLayout />
       <main
-        className="app-content d-flex"
-        style={{ minHeight: "calc(100vh - 178px)" }}
       >
         {children}
       </main>

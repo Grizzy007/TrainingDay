@@ -1,7 +1,8 @@
 .v-auth {
   background-color: white;
   min-width: 100%;
-  min-height: 800px;
+  display: flex;
+  min-height: calc(100vh - 178px);
 }
 
 .v-auth .container{
