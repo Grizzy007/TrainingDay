@@ -50,7 +50,7 @@ const SuggestNewProgramView = () => {
   };
 
   const handleSubmit = async() => {
-    const response = await newProgram({...formData, trainer: user.getUserData().nickname});
+    const response = await newProgram({...formData, trainer: user.getUserData.nickname});
     console.log(response.status);
   }
 
