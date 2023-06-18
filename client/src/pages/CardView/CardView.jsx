@@ -36,7 +36,7 @@ const CardView = observer(() => {
             </span>
           </div>
           <span className="v-card__author fs-2 fst-italic">
-            {activeCard.getActiveCardData.trainer
+            {activeCard.getActiveCardData?.trainer
               ? `Created by ${activeCard.getActiveCardData.trainer}`
               : "Secret author"}
           </span>

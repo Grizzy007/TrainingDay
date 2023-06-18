@@ -66,7 +66,7 @@ const SuggestNewProgramView = () => {
               />
               <InputProgramControl
                 label="Muscle Group"
-                name="group"
+                name="muscleGroup"
                 value={formData.groups}
                 placeholder="Enter Enter workout name"
                 onChange={handleChange}
