@@ -10,7 +10,7 @@ import InputControl from "../../components/InputControl";
 import { Context } from "../..";
 
 import { PAGE } from "../../config/config";
-import { updateUser } from "../../hooks/userAPI";
+import { updateUser } from "../../hooks/userApi";
 
 const UserProfileView = observer(() => {
   const navigate = useNavigate();

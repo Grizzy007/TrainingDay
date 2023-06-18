@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
 import { Context } from ".";
-import { check } from "./hooks/userAPI";
+import { check } from "./hooks/userApi";
 import { RouterProvider } from "react-router-dom";
 import router from "./router/router";
 

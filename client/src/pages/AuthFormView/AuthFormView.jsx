@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import { login, registration } from "../../hooks/userAPI";
+import { login, registration } from "../../hooks/userApi";
 import { Context } from "../..";
 import toast, { Toaster } from "react-hot-toast";
 

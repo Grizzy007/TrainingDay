@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ReactPlayer from "react-player";
 
 import MainLayout from "../../components/MainLayout";
@@ -7,7 +7,8 @@ import InputProgramControl from "../../components/InputProgramControl";
 import "./SuggestNewProgramView.css";
 import { IconYouTubeError } from "../../components/Icons";
 import TextAreaProgramControl from "../../components/TextAreaProgramControl/TextAreaProgramControl";
-import { newProgram } from "../../hooks/programAPI";
+import { newProgram } from "../../hooks/programApi";
+import { Context } from "../..";
 
 const SuggestNewProgramView = () => {
   const defaultFormData = {
@@ -18,6 +19,8 @@ const SuggestNewProgramView = () => {
     definition: "",
     description: "",
   };
+
+  const { user } = useContext(Context);
 
   const youtubeRegex =
     // eslint-disable-next-line no-useless-escape
@@ -47,7 +50,7 @@ const SuggestNewProgramView = () => {
   };
 
   const handleSubmit = async() => {
-    const response = await newProgram(formData);
+    const response = await newProgram({...formData, trainer: user.getUserData().nickname});
     console.log(response.status);
   }
 

@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import baki from "../../assert/photo/catalog/baki.jpg";
 
 import MainLayout from "../../components/MainLayout";
 
 import "./CatalogView.css";
+import { Context } from "../..";
+import Card from "../../components/Card/Card";
+import { useNavigate } from "react-router-dom";
 
 const CatalogView = () => {
+  const { program } = useContext(Context);
+  const navigate = useNavigate();
+
+  const handleSelectCard = (id) => {
+    navigate(`/catalog/${id}`);
+  };
+
   return (
     <MainLayout>
       <div className="v-catalog">
@@ -39,6 +49,18 @@ const CatalogView = () => {
                 be strong, fit and ready for the challenges of life.
               </p>
             </div>
+          </div>
+          <div className="v-catalog__cards">
+            {program.getCatalogData.map((card) => (
+              <Card
+                key={card.id}
+                nameCard={card.name}
+                definitionCard={card.definition}
+                timeCard={card.duration}
+                groupCard={card.group}
+                handleClick={() => handleSelectCard(card.id)}
+              />
+            ))}
           </div>
         </div>
       </div>

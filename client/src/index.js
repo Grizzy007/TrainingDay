@@ -8,6 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import "../src/index.css";
 import UserStore from "./store/UserStore";
 import App from "./App";
+import ProgramStore from "./store/ProgramStore";
 
 export const Context = createContext(null);
 
@@ -17,9 +18,11 @@ root.render(
     <Context.Provider
       value={{
         user: new UserStore(),
+        program: new ProgramStore(),
       }}
-    >    <App />
-        {/* <RouterProvider router={router} /> */}
+    >
+      <App />
+      {/* <RouterProvider router={router} /> */}
     </Context.Provider>
   </React.StrictMode>
 );
