@@ -203,7 +203,6 @@ const AuthFormView = observer(() => {
 
     if (location.pathname === PAGE.REGISTRATION.PATH) {
       return registerUser(authData);
-      // console.log(response);
     }
 
     if (location.pathname === PAGE.LOGIN.PATH) {

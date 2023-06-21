@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 import MainLayout from "../../components/MainLayout";
@@ -8,6 +8,7 @@ import "./SuggestNewProgramView.css";
 import { IconYouTubeError } from "../../components/Icons";
 import TextAreaProgramControl from "../../components/TextAreaProgramControl/TextAreaProgramControl";
 import { newProgram } from "../../hooks/programApi";
+import { Toaster, toast } from "react-hot-toast";
 
 const SuggestNewProgramView = () => {
   const defaultFormData = {
@@ -26,6 +27,7 @@ const SuggestNewProgramView = () => {
   const [formData, setFormData] = useState(defaultFormData);
   const [isViewVideo, setIsViewVideo] = useState(false);
   const [isYoutubeError, setIsYouTubeError] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const handleChange = (e) => {
     const eventTarget = e.currentTarget;
@@ -47,12 +49,30 @@ const SuggestNewProgramView = () => {
   };
 
   const handleSubmit = async () => {
-    const response = await newProgram(formData);
-    console.log(response.status);
+    try {
+      await newProgram(formData);
+      toast.success("Successfully send!");
+    } catch (error) {
+      toast.error("Oops! Something went wrong...");
+    }
   };
+
+  useEffect(() => {
+    Object.values(formData).forEach((item) => {
+      if (!item) {
+        console.log("yes", item);
+      }
+    });
+    const isEmptyField =
+      Object.entries(formData).find((item) => !item[1]) === undefined
+        ? false
+        : true;
+    setIsDisabled(isEmptyField);
+  }, [formData]);
 
   return (
     <MainLayout>
+      <Toaster />
       <div className="v-suggest-new-program">
         <div className="container">
           <div className="v-suggest-new-program__container">
@@ -94,17 +114,23 @@ const SuggestNewProgramView = () => {
                 onChange={handleChange}
               />
               <TextAreaProgramControl
-                label="Definition"
+                label="Description"
                 name="description"
                 value={formData.description}
                 placeholder="Enter youtube description"
                 onChange={handleChange}
               />
               <button
-                style={{ minWidth: 220 }}
+                disabled={isDisabled}
                 className="btn btn-outline-warning btn-lg ms-2"
                 type="button"
                 onClick={handleSubmit}
+                style={{
+                  minWidth: 220,
+                  borderWidth: 4,
+                  borderColor: isDisabled ? "#959595" : "",
+                  color: isDisabled ? "#959595" : "",
+                }}
               >
                 <span className="fw-bold fs-5">SAVE</span>
               </button>

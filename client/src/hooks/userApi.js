@@ -7,14 +7,13 @@ export const registration = async (data) => {
 
 export const login = async (formData) => {
   const { data } = await $host.post("/auth/login", formData);
-  console.log(data.token);
-  console.log(localStorage);
   localStorage.setItem("token", data.token);
   return data;
 };
 
 export const check = async () => {
   const response = await $authHost.get("/check");
+  console.log('response check', response);
   localStorage.setItem('token', response.data.token)
   return response;
 };

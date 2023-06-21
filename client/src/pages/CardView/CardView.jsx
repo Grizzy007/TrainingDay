@@ -18,13 +18,18 @@ const CardView = observer(() => {
 
   useEffect(() => {
     cardById(params.catalogId)
-    .then((data) => activeCard.setActiveCarData(data))
-    .catch(() => {
-      toast.error("Oops! Something went wrong...");
-    })
-    .finally(() => {
-      setLoading(false);
-    });
+      .then((response) => {
+        if (response.data.id === null) {
+          throw new Error();
+        }
+        activeCard.setActiveCarData(response.data);
+      })
+      .catch(() => {
+        toast.error("Oops! Something went wrong...");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,8 +38,8 @@ const CardView = observer(() => {
       <div
         className="v-card container"
         style={{
-          width: 50,
-          height: 50,
+          width: loading ? 50 : "",
+          height: loading ? 50 : "",
           justifyContent: loading ? "center" : "",
         }}
       >

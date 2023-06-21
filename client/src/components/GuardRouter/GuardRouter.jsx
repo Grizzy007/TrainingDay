@@ -11,11 +11,8 @@ const GuardRouter = observer((props) => {
   const { user } = useContext(Context);
 
   const location = useLocation();
-  // const navigate = useNavigate();
 
   const checkAccessPage = () => {
-    console.log(user.getIsAuth);
-    console.log(user.getUserData);
     if (!user.getIsAuth) {
       user.setGuardPath(location.pathname);
       return <AuthFormView />;
