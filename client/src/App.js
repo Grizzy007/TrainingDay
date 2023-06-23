@@ -12,8 +12,8 @@ const App = observer(() => {
 
   useEffect(() => {
     check()
-      .then((data) => {
-        user.setUserData(data);
+      .then((response) => {
+        user.setUserData(response.data);
         user.setIsAuth(true);
       })
       .catch(() => console.log("Empty local storage"));

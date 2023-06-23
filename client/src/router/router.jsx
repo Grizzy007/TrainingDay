@@ -46,9 +46,9 @@ const router = createBrowserRouter([
   },
   {
     element: (
-      <GuardRouter>
+      // <GuardRouter>
         <SuggestNewProgramView />
-      </GuardRouter>
+      // </GuardRouter>
     ),
     path: PAGE.SUGGEST_NEW_PROGRAM.PATH,
   },

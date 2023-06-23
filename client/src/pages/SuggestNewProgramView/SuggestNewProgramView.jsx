@@ -132,7 +132,7 @@ const SuggestNewProgramView = () => {
                   color: isDisabled ? "#959595" : "",
                 }}
               >
-                <span className="fw-bold fs-5">SAVE</span>
+                <span className="fw-bold fs-5">SEND</span>
               </button>
             </div>
             {isViewVideo && (
