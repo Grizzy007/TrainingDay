@@ -168,7 +168,8 @@ const AuthFormView = observer(() => {
       });
       navigate(PAGE.LOGIN.PATH);
     } catch (error) {
-      toast.error('Oops. Something went wrong');
+      console.log(error);
+      toast.error(error.response.data.error || 'Oops. Something went wrong');
       setFormError({
         ...formError,
         confirmPassword: error.response.data.error,

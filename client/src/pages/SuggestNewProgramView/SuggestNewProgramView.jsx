@@ -28,6 +28,7 @@ const SuggestNewProgramView = () => {
   const [isViewVideo, setIsViewVideo] = useState(false);
   const [isYoutubeError, setIsYouTubeError] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+  // const [isValidVideo, setIsValidVideo] = useState(false);
 
   const handleChange = (e) => {
     const eventTarget = e.currentTarget;
@@ -57,17 +58,20 @@ const SuggestNewProgramView = () => {
     }
   };
 
+  const handleOnError = (error) => {
+    setIsDisabled(true);
+  };
+
   useEffect(() => {
-    Object.values(formData).forEach((item) => {
-      if (!item) {
-        console.log("yes", item);
-      }
-    });
     const isEmptyField =
       Object.entries(formData).find((item) => !item[1]) === undefined
         ? false
         : true;
-    setIsDisabled(isEmptyField);
+    if (!youtubeRegex.test(formData.link)) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(isEmptyField);
+    }
   }, [formData]);
 
   return (
@@ -148,6 +152,7 @@ const SuggestNewProgramView = () => {
                       url={formData.link}
                       controls
                       className="video"
+                      onError={handleOnError}
                     />
                   )}
                 </div>
